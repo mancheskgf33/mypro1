@@ -18,11 +18,14 @@ RUN curl -fsSLO "https://github.com/aria2/aria2/releases/download/release-${ARIA
 
 FROM python:3.12-slim-bookworm
 ENV PYTHONUNBUFFERED=1 PYTHONDONTWRITEBYTECODE=1 PIP_NO_CACHE_DIR=1
+ENV DENO_INSTALL=/usr/local
 RUN apt-get update && apt-get install -y --no-install-recommends \
     ca-certificates curl git build-essential ffmpeg p7zip-full file tini procps \
     libmagic1 libssl3 libxml2 zlib1g libsqlite3-0 libssh2-1 libexpat1 \
     libc-ares2 libattr1-dev && \
     rm -rf /var/lib/apt/lists/*
+RUN curl -fsSL https://deno.land/install.sh | sh \
+    && /usr/local/bin/deno --version
 COPY --from=aria2-build /usr/local/bin/aria2c /usr/local/bin/aria2c
 WORKDIR /app
 COPY requirements.txt .
