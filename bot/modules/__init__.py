@@ -1,3 +1,4 @@
+from .bot_settings import send_bot_settings, edit_bot_settings
 from .cancel_task import cancel, cancel_updates, cancel_all_buttons, cancel_all_update
 from .chat_permission import authorize, unauthorize, add_sudo, remove_sudo
 from .clone import clone_node
@@ -28,6 +29,8 @@ from .ytdlp import ytdl, ytdl_leech
 from .gallery_dl import gallery_dl, gallery_dl_leech
 
 __all__ = [
+    "send_bot_settings",
+    "edit_bot_settings",
     "cancel",
     "cancel_updates",
     "cancel_all_buttons",
