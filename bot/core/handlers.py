@@ -10,6 +10,16 @@ from .telegram_manager import TgClient
 def add_handlers():
     TgClient.bot.add_handler(
         MessageHandler(
+            send_bot_settings,
+            filters=command(BotCommands.BotSetCommand, case_sensitive=True)
+            & CustomFilters.owner,
+        )
+    )
+    TgClient.bot.add_handler(
+        CallbackQueryHandler(edit_bot_settings, filters=regex("^botset"))
+    )
+    TgClient.bot.add_handler(
+        MessageHandler(
             authorize,
             filters=command(BotCommands.AuthorizeCommand, case_sensitive=True)
             & CustomFilters.sudo,
